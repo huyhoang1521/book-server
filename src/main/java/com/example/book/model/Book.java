@@ -24,7 +24,7 @@ public class Book {
     @NotEmpty(message = "IP Address cannot be empty or null")
     private String title;
     private String author;
-    private String price;
+    private double price;
     private String description;
     private String genre;
     private String imageUrl;
