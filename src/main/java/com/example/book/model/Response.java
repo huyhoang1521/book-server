@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 
 import lombok.Data;
@@ -21,4 +22,5 @@ public class Response {
     protected String message;
     protected String developerMessage;
     protected Map<?, ?> data;
+    Page<Book> page;
 }

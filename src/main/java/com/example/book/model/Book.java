@@ -21,7 +21,7 @@ public class Book {
     @GeneratedValue(strategy = AUTO)
     private Long id;
     @Column(unique = true)
-    @NotEmpty(message = "IP Address cannot be empty or null")
+    @NotEmpty(message = "Title cannot be empty or null")
     private String title;
     private String author;
     private double price;

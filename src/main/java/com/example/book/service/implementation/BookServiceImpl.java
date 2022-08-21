@@ -2,16 +2,20 @@ package com.example.book.service.implementation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import com.example.book.model.Book;
 import com.example.book.repo.BookRepo;
 import com.example.book.service.BookService;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import static java.lang.Boolean.TRUE;
@@ -21,8 +25,10 @@ import static org.springframework.data.domain.PageRequest.of;
 @Service
 @Transactional
 @Slf4j
+
 public class BookServiceImpl implements BookService {
     private final BookRepo bookRepo;
+    EntityManager entityManager;
 
     @Override
     public Book create(Book book) {
@@ -31,10 +37,14 @@ public class BookServiceImpl implements BookService {
         return bookRepo.save(book);
     }
 
-    @Override
-    public Collection<Book> list(int limit) {
+    public Page<Book> list(int page, int limit) {
         log.info("Fetching all books");
-        return bookRepo.findAll(of(0, limit)).toList();
+        //return bookRepo.findAll(of(page, limit));
+        return bookRepo.findAll(of(page, limit, Sort.by(Sort.Direction.DESC, "id")));
+    }
+
+    public List<Book> list2(int page, int limit) {
+        return bookRepo.findByAuthor("F. Scott Fitzgerald");
     }
 
     @Override
